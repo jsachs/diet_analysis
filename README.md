@@ -8,4 +8,4 @@ Use
 
 To run diet_analysis, type:
 
-  $ python main.py
+    $ python main.py
