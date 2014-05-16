@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import curses
+import time
 import visualize
 import logging
-
-#screen = curses.initscr()
 
 
 def display_data_menu(screen):
@@ -14,10 +13,9 @@ def display_data_menu(screen):
 
     screen.clear()
     screen.border(0)
-    screen.addstr(2, 2, "Enter start date:")
-    x = screen.getstr(3, 2, 60)
-    screen.addstr(4, 2, "Enter end date:")
-    y = screen.getstr(5, 2, 60)
+
+    x = get_date(screen, 2, 2, "Enter start date:")
+    y = get_date(screen, 3, 2, "Enter end date:")
 
     curses.endwin()
 
@@ -28,22 +26,62 @@ def display_log_menu(screen):
 
     screen.clear()
     screen.border(0)
-    screen.addstr(2, 2, "Enter meal name:")
-    name = screen.getstr(3, 2, 60)
-    screen.addstr(4, 2, "Calories (g):")
-    cals = int(screen.getstr(5, 2, 60))
-    screen.addstr(6, 2, "Fat (g):")
-    fat = int(screen.getstr(7, 2, 60))
-    screen.addstr(8, 2, "Carbs (g):")
-    carbs = int(screen.getstr(9, 2, 60))
-    screen.addstr(10, 2, "Protein (g):")
-    protein = int(screen.getstr(11, 2, 60))
-    screen.addstr(12, 2, "Enter date <DD/MM/YYYY>:")
-    date = screen.getstr(13, 2, 60)
+
+    name = get_name(screen, 2, 2, "Enter meal name:")
+    cals = get_macro(screen, 3, 2, "Calories (g):")
+    fat = get_macro(screen, 4, 2, "Fat (g):")
+    carbs = get_macro(screen, 5, 2, "Carbs (g):")
+    protein = get_macro(screen, 6, 2, "Protein (g):")
+    date = get_date(screen, 7, 2, "Enter date <MM/DD/YYYY>:")
 
     curses.endwin()
 
     logging.log_diet(name, cals, fat, carbs, protein, date)
+
+
+def get_name(screen, x, y, s):
+    screen.addstr(x, y, s)
+    while True:
+        screen.addstr(x, len(s)+3, " "*60)
+        name = screen.getstr(x, len(s)+3, 60)
+        try:
+            name = str(name)
+            break
+        except ValueError:
+            screen.addstr(x+2, y, "Please enter a valid string")
+            continue
+    screen.addstr(x+2, y, " "*60)
+    return name
+
+
+def get_macro(screen, x, y, s):
+    screen.addstr(x, y, s)
+    while True:
+        screen.addstr(x, len(s)+3, " "*60)
+        macro = screen.getstr(x, len(s)+3, 60)
+        try:
+            macro = int(macro)
+            break
+        except ValueError:
+            screen.addstr(x+2, y, "Please enter an integer")
+            continue
+    screen.addstr(x+2, y, " "*60)
+    return macro
+
+
+def get_date(screen, x, y, s):
+    screen.addstr(x, y, s)
+    while True:
+        screen.addstr(x, len(s)+3, " "*60)
+        date = screen.getstr(x, len(s)+3, 60)
+        try:
+            time.strptime(date, "%m/%d/%Y")
+            break
+        except ValueError:
+            screen.addstr(x+2, y, "Please enter an integer")
+            continue
+    screen.addstr(x+2, y, " "*60)
+    return macro
 
 
 def menu_loop_wrapper():
