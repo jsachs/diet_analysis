@@ -8,14 +8,14 @@ db = TinyDB('my_diet.json')
 
 def log_diet(name, cals, fat, carbs, protein, date):
     dt = time.strptime(date, "%m/%d/%Y")
-    dt = time.mktime(dt)/86400 # number of days since the epoch
+    dt = round(time.mktime(dt)/86400) # number of days since the epoch
     meal = {'name': name,
             'cals':cals,
             'fat': fat,
             'carbs': carbs,
             'protein': protein
     }
-    db.insert({'date': time.mktime(dt), 'meal': meal})
+    db.insert({'date': dt, 'meal': meal})
 
 
 def get_data(start, end):

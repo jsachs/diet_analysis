@@ -78,10 +78,10 @@ def get_date(screen, x, y, s):
             time.strptime(date, "%m/%d/%Y")
             break
         except ValueError:
-            screen.addstr(x+2, y, "Please enter an integer")
+            screen.addstr(x+2, y, "Please enter an valid formatted date")
             continue
     screen.addstr(x+2, y, " "*60)
-    return macro
+    return date
 
 
 def menu_loop_wrapper():
