@@ -30,7 +30,7 @@ def plot_diet(start, end):
     # Set up graph labels
     plot.ylabel('Calories')
     plot.title('Calories by macronutrient', y = 1.05)
-    plot.xticks(ind+width/2., dates )
+    plot.xticks(ind+width/2., format_labels(dates))
     plot.yticks(np.arange(0,5000,500))
 
     # Set up graph legend
@@ -42,3 +42,10 @@ def plot_diet(start, end):
                       shadow=True)
 
     plot.show()
+
+def format_labels(dates):
+    ret = []
+    for date in dates:
+        date = date[:-5]
+        ret.append(date)
+    return ret
