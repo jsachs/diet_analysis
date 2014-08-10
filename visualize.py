@@ -6,6 +6,10 @@ import numpy as np
 import matplotlib.pyplot as plot
 
 
+def display_average_calories(start, end):
+    data = logging.get_data(start, end)
+    return analyze.get_average_calories(data)
+
 def plot_diet(start, end):
 
     data = logging.get_data(start, end)
