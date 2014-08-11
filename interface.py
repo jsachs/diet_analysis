@@ -18,7 +18,6 @@ def display_data_menu(screen):
     visualize.plot_diet(start=x, end=y)
 
 def display_log_menu(screen):
-
     screen.clear()
     screen.border(0)
 
@@ -52,6 +51,8 @@ def display_analysis_menu(screen):
 
         if x == ord('1'):
             display_average_calories_menu(screen)
+        if x == ord('2'):
+            display_meals_menu(screen)
 
     curses.endwin()
 
@@ -66,6 +67,27 @@ def display_average_calories_menu(screen):
     y = get_date(screen, 3, 2, "Enter end date <MM/DD/YYYY>:")
 
     cont = get_name(screen, 5, 2, "Average calories: " + str(visualize.display_average_calories(start=x, end=y)))
+
+    curses.endwin()
+
+def display_meals_menu(screen):
+    x = 0
+    y = 0
+
+    screen.clear()
+    screen.border(0)
+
+    x = get_date(screen, 2, 2, "Enter start date <MM/DD/YYYY>:")
+    y = get_date(screen, 3, 2, "Enter end date <MM/DD/YYYY>:")
+
+
+    meals = visualize.display_meals(start=x, end=y)
+    screen.addstr(5, 2, "Meals from " + x + " to " + y)
+    marker = 0
+    for i, meal in enumerate(meals):
+        screen.addstr(i+6, 2, str(meal))
+        marker = i
+    cont = get_name(screen, marker+6, 2, "")
 
     curses.endwin()
 
@@ -123,7 +145,7 @@ def menu_loop(screen):
         screen.addstr(2, 2, "Choose an option:")
         screen.addstr(4, 4, "1 - Display data")
         screen.addstr(5, 4, "2 - Log data")
-        screen.addstr(6, 4, "3 - Analysis") # Future option
+        screen.addstr(6, 4, "3 - Analysis")
         screen.addstr(7, 4, "4 - Exit")
         screen.refresh()
 
@@ -131,10 +153,8 @@ def menu_loop(screen):
 
         if x == ord('1'):
             display_data_menu(screen)
-
         if x == ord('2'):
             display_log_menu(screen)
-
         if x == ord('3'):
             display_analysis_menu(screen)
 

@@ -6,6 +6,21 @@ from tinydb import TinyDB, where
 db = TinyDB('my_diet.json')
 
 
+class Meal(object):
+    def __init__(self, name, cals, fat, carbs, protein, date):
+        self.name = name
+        self.cals = cals
+        self.fat = fat
+        self.carbs = carbs
+        self.protein = protein
+        if date:
+            self.date = date
+        else:
+            dt = time.time()
+            dt = round(time.mktime(dt)/84000)
+            self.date = dt
+
+
 def log_diet(name, cals, fat, carbs, protein, date):
     dt = time.strptime(date, "%m/%d/%Y")
     dt = round(time.mktime(dt)/86400) # number of days since the epoch

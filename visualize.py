@@ -10,6 +10,10 @@ def display_average_calories(start, end):
     data = logging.get_data(start, end)
     return analyze.get_average_calories(data)
 
+def display_meals(start, end):
+    data = logging.get_data(start, end)
+    return data
+
 def plot_diet(start, end):
 
     data = logging.get_data(start, end)
@@ -44,7 +48,6 @@ def plot_diet(start, end):
                       ncol=3,
                       fancybox=True,
                       shadow=True)
-
     plot.show()
 
 def format_labels(dates):
