@@ -1,3 +1,6 @@
 *.pyc
 *.json
 *.idea
+dist
+MANIFEST
+

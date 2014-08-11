@@ -10,9 +10,11 @@ def display_average_calories(start, end):
     data = logging.get_data(start, end)
     return analyze.get_average_calories(data)
 
+
 def display_meals(start, end):
     data = logging.get_data(start, end)
     return data
+
 
 def plot_diet(start, end):
 
@@ -33,22 +35,24 @@ def plot_diet(start, end):
     # Set up bar pieces
     p1 = plot.bar(ind, fat, width, color="green")
     p2 = plot.bar(ind, carbs, width, color="blue", bottom=fat)
-    p3 = plot.bar(ind, protein, width, color="red", bottom=np.add(carbs,fat))
+    p3 = plot.bar(ind, protein, width, color="red", bottom=np.add(carbs, fat))
 
     # Set up graph labels
     plot.ylabel('Calories')
-    plot.title('Calories by macronutrient', y = 1.05)
+    plot.title('Calories by macronutrient', y=1.05)
     plot.xticks(ind+width/2., format_labels(dates))
-    plot.yticks(np.arange(0,5000,500))
+    plot.yticks(np.arange(0, 5000, 500))
 
     # Set up graph legend
-    lgd = plot.legend([p1, p2, p3], ["Fat", "Carbs", "Protein"],
+    lgd = plot.legend([p1, p2, p3],
+                      ["Fat", "Carbs", "Protein"],
                       loc='upper center',
                       bbox_to_anchor=(0.5, 1.05),
                       ncol=3,
                       fancybox=True,
                       shadow=True)
     plot.show()
+
 
 def format_labels(dates):
     ret = []

@@ -14,8 +14,8 @@ def display_data_menu(screen):
     y = get_date(screen, 3, 2, "Enter end date <MM/DD/YYYY>:")
 
     curses.endwin()
-
     visualize.plot_diet(start=x, end=y)
+
 
 def display_log_menu(screen):
     screen.clear()
@@ -32,8 +32,8 @@ def display_log_menu(screen):
 
     logging.log_diet(name, cals, fat, carbs, protein, date)
 
-def display_analysis_menu(screen):
 
+def display_analysis_menu(screen):
     screen.clear()
     screen.border(0)
     x = 0
@@ -43,7 +43,7 @@ def display_analysis_menu(screen):
         screen.border(0)
         screen.addstr(2, 2, "Choose an option:")
         screen.addstr(4, 4, "1 - Average calories")
-        screen.addstr(5, 4, "2 - View meals") # TODO add feature
+        screen.addstr(5, 4, "2 - View meals")
         screen.addstr(6, 4, "4 - Exit")
         screen.refresh()
 
@@ -56,85 +56,86 @@ def display_analysis_menu(screen):
 
     curses.endwin()
 
-def display_average_calories_menu(screen):
-    x = 0
-    y = 0
 
+def display_average_calories_menu(screen):
     screen.clear()
     screen.border(0)
 
     x = get_date(screen, 2, 2, "Enter start date <MM/DD/YYYY>:")
     y = get_date(screen, 3, 2, "Enter end date <MM/DD/YYYY>:")
 
-    cont = get_name(screen, 5, 2, "Average calories: " + str(visualize.display_average_calories(start=x, end=y)))
+    get_name(screen, 5, 2, "Average calories: " + str(visualize.display_average_calories(start=x, end=y)))
 
     curses.endwin()
 
-def display_meals_menu(screen):
-    x = 0
-    y = 0
 
+def display_meals_menu(screen):
     screen.clear()
     screen.border(0)
 
     x = get_date(screen, 2, 2, "Enter start date <MM/DD/YYYY>:")
     y = get_date(screen, 3, 2, "Enter end date <MM/DD/YYYY>:")
-
 
     meals = visualize.display_meals(start=x, end=y)
     screen.addstr(5, 2, "Meals from " + x + " to " + y)
     marker = 0
     for i, meal in enumerate(meals):
-        screen.addstr(i+6, 2, str(meal))
+        screen.addstr(i + 6, 2, str(meal))
         marker = i
-    cont = get_name(screen, marker+6, 2, "")
+    get_name(screen, marker + 6, 2, "")
 
     curses.endwin()
+
 
 def get_name(screen, x, y, s):
     screen.addstr(x, y, s)
     while True:
-        screen.addstr(x, len(s)+3, " "*60)
-        name = screen.getstr(x, len(s)+3, 60)
+        screen.addstr(x, len(s) + 3, " " * 60)
+        name = screen.getstr(x, len(s) + 3, 60)
         try:
             name = str(name)
             break
         except ValueError:
-            screen.addstr(x+2, y, "Please enter a valid string")
+            screen.addstr(x + 2, y, "Please enter a valid string")
             continue
-    screen.addstr(x+2, y, " "*60)
+    screen.addstr(x + 2, y, " " * 60)
     return name
+
 
 def get_macro(screen, x, y, s):
     screen.addstr(x, y, s)
     while True:
-        screen.addstr(x, len(s)+3, " "*60)
-        macro = screen.getstr(x, len(s)+3, 60)
+        screen.addstr(x, len(s) + 3, " " * 60)
+        macro = screen.getstr(x, len(s) + 3, 60)
         try:
             macro = int(macro)
             break
         except ValueError:
-            screen.addstr(x+2, y, "Please enter an integer")
+            screen.addstr(x + 2, y, "Please enter an integer")
             continue
-    screen.addstr(x+2, y, " "*60)
+    screen.addstr(x + 2, y, " " * 60)
     return macro
+
 
 def get_date(screen, x, y, s):
     screen.addstr(x, y, s)
     while True:
-        screen.addstr(x, len(s)+3, " "*60)
-        date = screen.getstr(x, len(s)+3, 60)
+        screen.addstr(x, len(s) + 3, " " * 60)
+        date = screen.getstr(x, len(s) + 3, 60)
         try:
             time.strptime(date, "%m/%d/%Y")
             break
         except ValueError:
-            screen.addstr(x+2, y, "Please enter a valid formatted date")
+            screen.addstr(x + 2, y, "Please enter a valid formatted date")
             continue
-    screen.addstr(x+2, y, " "*60)
+    screen.addstr(x + 2, y, " " * 60)
     return date
+
 
 def menu_loop_wrapper():
     curses.wrapper(menu_loop)
+
+
 def menu_loop(screen):
     curses.echo()
     x = 0
